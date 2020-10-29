@@ -92,8 +92,8 @@ void CriaPosicoes()
 
 void MovimentaCacador(int choose)
 {
-   // while (!cacador.cacando)
-   // {
+
+
         
         
         switch (choose)
@@ -116,63 +116,116 @@ void MovimentaCacador(int choose)
             break;
         case 1:
             // anda para cima
-            matriz[cacador.posicaoCacadorX][cacador.posicaoCacadorY] = 0;
-            cacador.posicaoCacadorX--;            
-            matriz[cacador.posicaoCacadorX][cacador.posicaoCacadorY] = 8;
+            if (cacador.posicaoCacadorX > 0)
+            {
+                matriz[cacador.posicaoCacadorX][cacador.posicaoCacadorY] = 0;
+                cacador.posicaoCacadorX--;
+                matriz[cacador.posicaoCacadorX][cacador.posicaoCacadorY] = 8;
+                cout << cacador.posicaoCacadorX << " - " << cacador.posicaoCacadorY << "andou " << choose << endl;
+            }
+            else
+            {
+                cout << "nao eh possivel";
+            }
 
-            cout << cacador.posicaoCacadorX << " - " << cacador.posicaoCacadorY << "andou " << choose << endl;
             break;
         case 2:
             // anda para vertical superior direita
-            matriz[cacador.posicaoCacadorX][cacador.posicaoCacadorY] = 0;
-            cacador.posicaoCacadorX--;
-            cacador.posicaoCacadorY++;
-            matriz[cacador.posicaoCacadorX][cacador.posicaoCacadorY] = 8;
+            if (cacador.posicaoCacadorX > 0 && cacador.posicaoCacadorY < 29)
+            {
+                matriz[cacador.posicaoCacadorX][cacador.posicaoCacadorY] = 0;
+                cacador.posicaoCacadorX--;
+                cacador.posicaoCacadorY++;
+                matriz[cacador.posicaoCacadorX][cacador.posicaoCacadorY] = 8;
+                cout << cacador.posicaoCacadorX << " - " << cacador.posicaoCacadorY << "andou " << choose << endl;
+            }
+            else
+            {
+                cout << "nao eh possivel";
+            }
 
-            cout << cacador.posicaoCacadorX << " - " << cacador.posicaoCacadorY << "andou " << choose << endl;
+
             break;
         case 3:
             // anda para direita
-            matriz[cacador.posicaoCacadorX][cacador.posicaoCacadorY] = 0;            
-            cacador.posicaoCacadorY++;
-            matriz[cacador.posicaoCacadorX][cacador.posicaoCacadorY] = 8;
+            if (cacador.posicaoCacadorY < 29)
+            {
+                
+                matriz[cacador.posicaoCacadorX][cacador.posicaoCacadorY] = 0;
+                cacador.posicaoCacadorY++;
+                matriz[cacador.posicaoCacadorX][cacador.posicaoCacadorY] = 8;
 
-            cout << cacador.posicaoCacadorX << " - " << cacador.posicaoCacadorY << "andou " << choose << endl;
+                cout << cacador.posicaoCacadorX << " - " << cacador.posicaoCacadorY << "andou " << choose << endl;
+            }
+            else                   
+            {
+                cout << "n eh possivel";
+            }
+
             break;
         case 4:
             // anda para vertical inferior direita
-            matriz[cacador.posicaoCacadorX][cacador.posicaoCacadorY] = 0;
-            cacador.posicaoCacadorX++;
-            cacador.posicaoCacadorY++;
-            matriz[cacador.posicaoCacadorX][cacador.posicaoCacadorY] = 8;
+            if (cacador.posicaoCacadorX < 29 && cacador.posicaoCacadorY < 29)
+            {
+                matriz[cacador.posicaoCacadorX][cacador.posicaoCacadorY] = 0;
+                cacador.posicaoCacadorX++;
+                cacador.posicaoCacadorY++;
+                matriz[cacador.posicaoCacadorX][cacador.posicaoCacadorY] = 8;
 
-            cout << cacador.posicaoCacadorX << " - " << cacador.posicaoCacadorY << "andou " << choose << endl;
+                cout << cacador.posicaoCacadorX << " - " << cacador.posicaoCacadorY << "andou " << choose << endl;
+            }
+            else
+            {
+                cout << "n eh possivel";
+            }
             break;
         case 5:
             // anda para baixo
-            matriz[cacador.posicaoCacadorX][cacador.posicaoCacadorY] = 0;
-            cacador.posicaoCacadorX--;            
-            matriz[cacador.posicaoCacadorX][cacador.posicaoCacadorY] = 8;
 
-            cout << cacador.posicaoCacadorX << " - " << cacador.posicaoCacadorY << "andou " << choose << endl;
+            if (cacador.posicaoCacadorX < 29)
+            {
+                matriz[cacador.posicaoCacadorX][cacador.posicaoCacadorY] = 0;
+                cacador.posicaoCacadorX--;
+                matriz[cacador.posicaoCacadorX][cacador.posicaoCacadorY] = 8;
+
+                cout << cacador.posicaoCacadorX << " - " << cacador.posicaoCacadorY << "andou " << choose << endl;
+            }
+            else
+            {
+                cout << "n eh possivel";
+            }
+
             break;
         case 6:
             // anda para vertical inferior esquerda
-            matriz[cacador.posicaoCacadorX][cacador.posicaoCacadorY] = 0;
-            cacador.posicaoCacadorX++;
-            cacador.posicaoCacadorY--;
-            matriz[cacador.posicaoCacadorX][cacador.posicaoCacadorY] = 8;
+            if (cacador.posicaoCacadorX < 29 && cacador.posicaoCacadorY > 0)
+            {
+                matriz[cacador.posicaoCacadorX][cacador.posicaoCacadorY] = 0;
+                cacador.posicaoCacadorX++;
+                cacador.posicaoCacadorY--;
+                matriz[cacador.posicaoCacadorX][cacador.posicaoCacadorY] = 8;
 
-            cout << cacador.posicaoCacadorX << " - " << cacador.posicaoCacadorY << "andou " << choose << endl;
+                cout << cacador.posicaoCacadorX << " - " << cacador.posicaoCacadorY << "andou " << choose << endl;
+            }
+            else
+            {
+                cout << "n eh possivel";
+            }
             break;
         case 7:
             // anda para esquerda
-            matriz[cacador.posicaoCacadorX][cacador.posicaoCacadorY] = 0;
-            
-            cacador.posicaoCacadorY--;
-            matriz[cacador.posicaoCacadorX][cacador.posicaoCacadorY] = 8;
+            if (cacador.posicaoCacadorY > 0)
+            {
+                matriz[cacador.posicaoCacadorX][cacador.posicaoCacadorY] = 0;
+                cacador.posicaoCacadorY--;
+                matriz[cacador.posicaoCacadorX][cacador.posicaoCacadorY] = 8;
 
-            cout << cacador.posicaoCacadorX << " - " << cacador.posicaoCacadorY << "andou " << choose << endl;
+                cout << cacador.posicaoCacadorX << " - " << cacador.posicaoCacadorY << "andou " << choose << endl;
+            }
+            else
+            {
+                cout << "n eh possivel";
+            }
             break;
 
         default:
@@ -180,10 +233,20 @@ void MovimentaCacador(int choose)
         }
 
         cout << "------------------------------" << endl;
-        ImprimeMatriz();
-
-   // }
+        ImprimeMatriz();  
 }
+
+void Varredura()
+{
+
+}
+
+
+
+
+
+
+
 
 int main()
 {
