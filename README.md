@@ -1,2 +1,2 @@
-# IA_Hunt_c-
+# IA_Hunt_c++
 a hunt simulation in c++
