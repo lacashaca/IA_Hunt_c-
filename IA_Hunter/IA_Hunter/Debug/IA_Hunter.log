@@ -1,0 +1,4 @@
+﻿  IA_Hunter.cpp
+C:\Users\duca-\source\repos\IA_Hunter\IA_Hunter\IA_Hunter.cpp(63,15): warning C4244: 'argumento': conversão de 'time_t' para 'unsigned int', possível perda de dados
+C:\Users\duca-\source\repos\IA_Hunter\IA_Hunter\IA_Hunter.cpp(74,106): warning C4554: '&': verifique a precedência de operador para possível erro; use parênteses para esclarecer a precedência
+  IA_Hunter.vcxproj -> C:\Users\duca-\source\repos\IA_Hunter\Debug\IA_Hunter.exe
