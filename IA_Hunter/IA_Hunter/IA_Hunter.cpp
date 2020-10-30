@@ -18,16 +18,21 @@ struct s_cacador
     int posicaoCacadorX;
     int alcance = 5;
     bool cacando = false;
-
 };
+
+
+
+
 
 int const linhas = 30;
 int const colunas = 30;
 
-int matriz[linhas][colunas];
+int matriz[linhas][colunas] ;
 
 vector <caca> cacas;
 s_cacador cacador;
+
+
 
 
 
@@ -94,8 +99,14 @@ void CriaPosicoes()
 
 
 
+
 void MovimentaCacador(int choose)
 {
+
+    if (choose==9)
+    {
+        choose = rand() % 7;
+    }
 
     switch (choose)
     {
@@ -247,10 +258,61 @@ void MovimentaCacador(int choose)
 
 void Cacar(int foco)
 {
-    cacas[foco - 1].posicaoCacaX;
-    cacas[foco - 1].posicaoCacaY;
+    int quadrado1, quadrado2, maisProximo;
+    float distancia;
+    float menorDistancia= 1000;    
+
+    int possibilidadeX[8];
+    int possibilidadeY[8];
+
+    //diagonal superior esquerda
+    possibilidadeX[0] = cacador.posicaoCacadorX - 1;
+    possibilidadeY[0] = cacador.posicaoCacadorY - 1;
+
+    //cima
+    possibilidadeX[1] = cacador.posicaoCacadorX - 1;
+    possibilidadeY[1] = cacador.posicaoCacadorY;
+
+    //diagonal superior direita
+    possibilidadeX[2] = cacador.posicaoCacadorX - 1;
+    possibilidadeY[2] = cacador.posicaoCacadorY + 1;
+
+    // direita
+    possibilidadeX[3] = cacador.posicaoCacadorX;
+    possibilidadeY[3] = cacador.posicaoCacadorY + 1;
+
+    // diagonal inferior direita
+    possibilidadeX[4] = cacador.posicaoCacadorX + 1;
+    possibilidadeY[4] = cacador.posicaoCacadorY + 1;
+
+    // baixo
+    possibilidadeX[5] = cacador.posicaoCacadorX + 1;
+    possibilidadeY[5] = cacador.posicaoCacadorY;
+
+    // diagonal inferior esquerda
+    possibilidadeX[6] = cacador.posicaoCacadorX + 1;
+    possibilidadeY[6] = cacador.posicaoCacadorY - 1;
+
+    // esquerda
+    possibilidadeX[7] = cacador.posicaoCacadorX;
+    possibilidadeY[7] = cacador.posicaoCacadorY - 1;
 
 
+
+    for (int i = 0; i < 8; i++)
+    {
+        quadrado1 = (possibilidadeX[i] - cacas[foco].posicaoCacaX) * (possibilidadeX[i] - cacas[foco].posicaoCacaX);
+        quadrado2 = (possibilidadeY[i] - cacas[foco].posicaoCacaY) * (possibilidadeY[i] - cacas[foco].posicaoCacaY);
+
+        distancia = sqrt(quadrado1 + quadrado2);
+
+        if (distancia < menorDistancia)
+        {
+            menorDistancia = distancia;
+            maisProximo = i;
+        }
+    }
+    MovimentaCacador(maisProximo);
 }
 
 
@@ -288,7 +350,12 @@ void Varredura()
     cout << "encontrados: " << encontrados << endl;
 
 
-    if (encontrados > 1)
+
+    if (encontrados == 1)
+    {
+        Cacar(foco[0]);
+    }
+    else if (encontrados > 1)
     {
         int maisProximo;
         float menorDistancia= 300;
@@ -309,6 +376,10 @@ void Varredura()
 
         Cacar(maisProximo);
     }
+    else
+    {
+        MovimentaCacador(9);
+    }
 
 
   
@@ -323,14 +394,20 @@ int main()
 {
     CriaMatriz();
     CriaPosicoes();
-    ImprimeMatriz();
+
     int escolha;
+
+    cout << "digite a quantidade de turnos " << endl;
     cin >> escolha;
-    while (escolha !=9)
+
+    while(escolha!=0)
+    {    
+
+    for (int i = 0; i < escolha; i++)
     {
-        
-        MovimentaCacador(escolha);
-        cin >> escolha;
+        Varredura();
     }
-   
+    cout << "digite a quantidade de turnos " << endl;
+    cin >> escolha;
+    }
 }
