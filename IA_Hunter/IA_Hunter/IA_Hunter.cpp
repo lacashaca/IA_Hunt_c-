@@ -95,11 +95,6 @@ void CriaPosicoes()
     
 }
 
-
-
-
-
-
 void MovimentaCacador(int choose)
 {
 
@@ -301,8 +296,8 @@ void Cacar(int foco)
 
     for (int i = 0; i < 8; i++)
     {
-        quadrado1 = (possibilidadeX[i] - cacas[foco].posicaoCacaX) * (possibilidadeX[i] - cacas[foco].posicaoCacaX);
-        quadrado2 = (possibilidadeY[i] - cacas[foco].posicaoCacaY) * (possibilidadeY[i] - cacas[foco].posicaoCacaY);
+        quadrado1 = (possibilidadeX[i] - cacas[foco -1].posicaoCacaX) * (possibilidadeX[i] - cacas[foco -1].posicaoCacaX);
+        quadrado2 = (possibilidadeY[i] - cacas[foco -1].posicaoCacaY) * (possibilidadeY[i] - cacas[foco -1].posicaoCacaY);
 
         distancia = sqrt(quadrado1 + quadrado2);
 
@@ -331,11 +326,14 @@ void Varredura()
             int alcanceX = cacador.posicaoCacadorX - cacador.alcance + i;
             int alcanceY = cacador.posicaoCacadorY - cacador.alcance + j;
 
-            if (matriz[alcanceX][alcanceY] != 0 && matriz[alcanceX][alcanceY] != 7)
+
+            if (matriz[alcanceX][alcanceY] == 1 || matriz[alcanceX][alcanceY] == 2 
+                || matriz[alcanceX][alcanceY] == 3 || matriz[alcanceX][alcanceY] == 4 
+                   || matriz[alcanceX][alcanceY] == 5 && matriz[alcanceX][alcanceY] != 7)
             {
                 
-                posicaoAchadoX[encontrados] = cacas[matriz[alcanceX][alcanceY] -1].posicaoCacaX;
-                posicaoAchadoY[encontrados] = cacas[matriz[alcanceX][alcanceY] -1].posicaoCacaY;
+                posicaoAchadoX[encontrados] = alcanceX;
+                posicaoAchadoY[encontrados] = alcanceY;
                 foco[encontrados] = matriz[alcanceX][alcanceY]; // guarda qual eh a caca
                 encontrados++;
 
