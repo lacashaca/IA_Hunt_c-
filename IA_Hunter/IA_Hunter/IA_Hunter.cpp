@@ -8,7 +8,7 @@ struct caca
 {
     int posicaoCacaY;
     int posicaoCacaX;
-    bool foco = false;
+    bool viva;
 
 };
 
@@ -28,13 +28,23 @@ int const linhas = 30;
 int const colunas = 30;
 
 int matriz[linhas][colunas] ;
-
+int possibilidadeCacadorX[8], possibilidadeCacadorY[8];
+int possibilidadeCacaX[8], possibilidadeCacaY[8];
 vector <caca> cacas;
 s_cacador cacador;
 
 
 
+void PreenchePossibilidades()
+{
+    
 
+    ///////////////////////////////////////////////////////
+
+    // POSSIBILIDADES DA CACA
+
+
+}
 
 void CriaMatriz()
 {
@@ -66,20 +76,20 @@ void ImprimeMatriz()
 void CriaPosicoes()
 {
     srand(time(NULL));
-    cacador.posicaoCacadorX = rand() % 30;
-    cacador.posicaoCacadorY = rand() % 30;
+    cacador.posicaoCacadorX = rand() % 29;
+    cacador.posicaoCacadorY = rand() % 29;
     matriz[cacador.posicaoCacadorX][cacador.posicaoCacadorY] = 7;
 
     for (int i = 0; i < 5; i++)
     {
         caca temp;
-        temp.posicaoCacaX = rand() % 30;
-        temp.posicaoCacaY = rand() % 30;       
+        temp.posicaoCacaX = rand() % 29;
+        temp.posicaoCacaY = rand() % 29;       
 
         while(cacador.posicaoCacadorX == temp.posicaoCacaX & cacador.posicaoCacadorY == temp.posicaoCacaY)
         {
-            temp.posicaoCacaX = rand() % 30;
-            temp.posicaoCacaY = rand() % 30;
+            temp.posicaoCacaX = rand() % 29;
+            temp.posicaoCacaY = rand() % 29;
         }
 
         cacas.push_back(temp);       
@@ -95,8 +105,223 @@ void CriaPosicoes()
     
 }
 
+
+void MovimentaCaca()
+{
+    int random =0;
+    int i = 0;
+
+
+
+    while (i < 5)
+    {
+        if (cacas[i].viva)
+        {
+            random = rand() % 7;
+            switch (random)
+            {
+            case 0:
+                // anda para vertical superior esquerda
+                if (cacas[i].posicaoCacaX > 0 && cacas[i].posicaoCacaY > 0
+                    && matriz[cacas[i].posicaoCacaX - 1][cacas[i].posicaoCacaY - 1] == 0) // a caça so se movera se houver espaço
+                {                                                                      // e não esteja ocupado por outra caça ou caçador
+                    matriz[cacas[i].posicaoCacaX][cacas[i].posicaoCacaY] = 0;
+                    cacas[i].posicaoCacaX--;
+                    cacas[i].posicaoCacaY--;
+                    matriz[cacas[i].posicaoCacaX][cacas[i].posicaoCacaY] = i + 1;
+
+                    cout << cacas[i].posicaoCacaX << " - " << cacas[i].posicaoCacaY << "andou " << random << endl;
+                    i++;
+
+                }
+                else
+                {
+                    cout << "sorteando novamente";
+                }
+                break;
+            case 1:
+                // anda para cima
+                if (cacas[i].posicaoCacaX > 0 && matriz[cacas[i].posicaoCacaX - 1][cacas[i].posicaoCacaY] == 0)
+                {
+                    matriz[cacas[i].posicaoCacaX][cacas[i].posicaoCacaY] = 0;
+                    cacas[i].posicaoCacaX--;
+                    matriz[cacas[i].posicaoCacaX][cacas[i].posicaoCacaY] = i + 1;
+
+                    cout << cacas[i].posicaoCacaX << " - " << cacas[i].posicaoCacaY << "andou " << random << endl;
+                    i++;
+
+                }
+                else
+                {
+                    cout << "sorteando novamente";
+                }
+
+                break;
+            case 2:
+                // anda para vertical superior direita
+                if (cacas[i].posicaoCacaX > 0 && cacas[i].posicaoCacaY < 29
+                    && matriz[cacas[i].posicaoCacaX - 1][cacas[i].posicaoCacaY + 1] == 0)
+                {
+                    matriz[cacas[i].posicaoCacaX][cacas[i].posicaoCacaY] = 0;
+                    cacas[i].posicaoCacaX--;
+                    cacas[i].posicaoCacaY++;
+                    matriz[cacas[i].posicaoCacaX][cacas[i].posicaoCacaY] = i + 1;
+
+                    cout << cacas[i].posicaoCacaX << " - " << cacas[i].posicaoCacaY << "andou " << random << endl;
+                    i++;
+
+                }
+                else
+                {
+                    cout << "sorteando novamente";
+                }
+
+
+                break;
+            case 3:
+                // anda para direita
+                if (cacas[i].posicaoCacaY < 29 && matriz[cacas[i].posicaoCacaX][cacas[i].posicaoCacaY + 1] == 0)
+                {
+                    matriz[cacas[i].posicaoCacaX][cacas[i].posicaoCacaY] = 0;
+                    cacas[i].posicaoCacaY++;
+                    matriz[cacas[i].posicaoCacaX][cacas[i].posicaoCacaY] = i + 1;
+
+                    cout << cacas[i].posicaoCacaX << " - " << cacas[i].posicaoCacaY << "andou " << random << endl;
+                    i++;
+
+                }
+                else
+                {
+                    cout << "sorteando novamente";
+                }
+
+                break;
+            case 4:
+                // anda para vertical inferior direita
+                if (cacas[i].posicaoCacaX < 29 && cacas[i].posicaoCacaY < 29
+                    && matriz[cacas[i].posicaoCacaX + 1][cacas[i].posicaoCacaY + 1] == 0)
+                {
+                    matriz[cacas[i].posicaoCacaX][cacas[i].posicaoCacaY] = 0;
+                    cacas[i].posicaoCacaX++;
+                    cacas[i].posicaoCacaY++;
+                    matriz[cacas[i].posicaoCacaX][cacas[i].posicaoCacaY] = i + 1;
+
+                    cout << cacas[i].posicaoCacaX << " - " << cacas[i].posicaoCacaY << "andou " << random << endl;
+                    i++;
+
+                }
+                else
+                {
+                    cout << "sorteando novamente";
+                }
+                break;
+            case 5:
+                // anda para baixo
+
+                if (cacas[i].posicaoCacaX < 29 && matriz[cacas[i].posicaoCacaX + 1][cacas[i].posicaoCacaY] == 0)
+                {
+                    matriz[cacas[i].posicaoCacaX][cacas[i].posicaoCacaY] = 0;
+                    cacas[i].posicaoCacaX++;
+                    matriz[cacas[i].posicaoCacaX][cacas[i].posicaoCacaY] = i + 1;
+
+                    cout << cacas[i].posicaoCacaX << " - " << cacas[i].posicaoCacaY << "andou " << random << endl;
+                    i++;
+
+                }
+                else
+                {
+                    cout << "sorteando novamente";
+                }
+
+                break;
+            case 6:
+                // anda para vertical inferior esquerda
+                if (cacas[i].posicaoCacaX < 29 && cacas[i].posicaoCacaY > 0
+                    && matriz[cacas[i].posicaoCacaX + 1][cacas[i].posicaoCacaY - 1] == 0)
+                {
+                    matriz[cacas[i].posicaoCacaX][cacas[i].posicaoCacaY] = 0;
+                    cacas[i].posicaoCacaX++;
+                    cacas[i].posicaoCacaY--;
+                    matriz[cacas[i].posicaoCacaX][cacas[i].posicaoCacaY] = i + 1;
+
+                    cout << cacas[i].posicaoCacaX << " - " << cacas[i].posicaoCacaY << "andou " << random << endl;
+                    i++;
+
+                }
+                else
+                {
+                    cout << " sorteando novamente" << endl;
+                }
+                break;
+            case 7:
+                // anda para esquerda
+                if (cacas[i].posicaoCacaY > 0 && matriz[cacas[i].posicaoCacaX][cacas[i].posicaoCacaY - 1] == 0)
+                {
+                    matriz[cacas[i].posicaoCacaX][cacas[i].posicaoCacaY] = 0;
+                    cacas[i].posicaoCacaY--;
+                    matriz[cacas[i].posicaoCacaX][cacas[i].posicaoCacaY] = i + 1;
+
+                    cout << cacas[i].posicaoCacaX << " - " << cacas[i].posicaoCacaY << "andou " << random << endl;
+                    i++;
+
+                }
+                else
+                {
+                    cout << "sorteando novamente";
+                }
+
+            default:
+                break;
+            }
+
+
+        }
+        else
+        {
+             i++;
+        }
+    }
+
+}
+
+
+
+
 void MovimentaCacador(int choose)
 {
+
+    //diagonal superior esquerda
+    possibilidadeCacadorX[0] = cacador.posicaoCacadorX - 1;
+    possibilidadeCacadorY[0] = cacador.posicaoCacadorY - 1;
+
+    //cima
+    possibilidadeCacadorX[1] = cacador.posicaoCacadorX - 1;
+    possibilidadeCacadorY[1] = cacador.posicaoCacadorY;
+
+    //diagonal superior direita
+    possibilidadeCacadorX[2] = cacador.posicaoCacadorX - 1;
+    possibilidadeCacadorY[2] = cacador.posicaoCacadorY + 1;
+
+    // direita
+    possibilidadeCacadorX[3] = cacador.posicaoCacadorX;
+    possibilidadeCacadorY[3] = cacador.posicaoCacadorY + 1;
+
+    // diagonal inferior direita
+    possibilidadeCacadorX[4] = cacador.posicaoCacadorX + 1;
+    possibilidadeCacadorY[4] = cacador.posicaoCacadorY + 1;
+
+    // baixo
+    possibilidadeCacadorX[5] = cacador.posicaoCacadorX + 1;
+    possibilidadeCacadorY[5] = cacador.posicaoCacadorY;
+
+    // diagonal inferior esquerda
+    possibilidadeCacadorX[6] = cacador.posicaoCacadorX + 1;
+    possibilidadeCacadorY[6] = cacador.posicaoCacadorY - 1;
+
+    // esquerda
+    possibilidadeCacadorX[7] = cacador.posicaoCacadorX;
+    possibilidadeCacadorY[7] = cacador.posicaoCacadorY - 1;
+
 
     if (choose==9)
     {
@@ -251,53 +476,24 @@ void MovimentaCacador(int choose)
     ImprimeMatriz();
 }
 
+
+void Atacar(int foco)
+{
+    matriz[cacas[foco].posicaoCacaX][cacas[foco].posicaoCacaY] = 0;
+    cacas[foco].viva = false;
+    ImprimeMatriz();
+}
+
 void Cacar(int foco)
 {
     int quadrado1, quadrado2, maisProximo;
     float distancia;
     float menorDistancia= 1000;    
 
-    int possibilidadeX[8];
-    int possibilidadeY[8];
-
-    //diagonal superior esquerda
-    possibilidadeX[0] = cacador.posicaoCacadorX - 1;
-    possibilidadeY[0] = cacador.posicaoCacadorY - 1;
-
-    //cima
-    possibilidadeX[1] = cacador.posicaoCacadorX - 1;
-    possibilidadeY[1] = cacador.posicaoCacadorY;
-
-    //diagonal superior direita
-    possibilidadeX[2] = cacador.posicaoCacadorX - 1;
-    possibilidadeY[2] = cacador.posicaoCacadorY + 1;
-
-    // direita
-    possibilidadeX[3] = cacador.posicaoCacadorX;
-    possibilidadeY[3] = cacador.posicaoCacadorY + 1;
-
-    // diagonal inferior direita
-    possibilidadeX[4] = cacador.posicaoCacadorX + 1;
-    possibilidadeY[4] = cacador.posicaoCacadorY + 1;
-
-    // baixo
-    possibilidadeX[5] = cacador.posicaoCacadorX + 1;
-    possibilidadeY[5] = cacador.posicaoCacadorY;
-
-    // diagonal inferior esquerda
-    possibilidadeX[6] = cacador.posicaoCacadorX + 1;
-    possibilidadeY[6] = cacador.posicaoCacadorY - 1;
-
-    // esquerda
-    possibilidadeX[7] = cacador.posicaoCacadorX;
-    possibilidadeY[7] = cacador.posicaoCacadorY - 1;
-
-
-
     for (int i = 0; i < 8; i++)
     {
-        quadrado1 = (possibilidadeX[i] - cacas[foco -1].posicaoCacaX) * (possibilidadeX[i] - cacas[foco -1].posicaoCacaX);
-        quadrado2 = (possibilidadeY[i] - cacas[foco -1].posicaoCacaY) * (possibilidadeY[i] - cacas[foco -1].posicaoCacaY);
+        quadrado1 = (possibilidadeCacadorX[i] - cacas[foco].posicaoCacaX) * (possibilidadeCacadorX[i] - cacas[foco].posicaoCacaX);
+        quadrado2 = (possibilidadeCacadorY[i] - cacas[foco].posicaoCacaY) * (possibilidadeCacadorY[i] - cacas[foco].posicaoCacaY);
 
         distancia = sqrt(quadrado1 + quadrado2);
 
@@ -306,8 +502,18 @@ void Cacar(int foco)
             menorDistancia = distancia;
             maisProximo = i;
         }
+         
+        cout  << "esta eh a dsitancia e o I " << distancia << " -- " << i << endl;
     }
-    MovimentaCacador(maisProximo);
+    if (menorDistancia == 0)
+    {
+        Atacar(foco);
+    }
+    else
+    {
+        MovimentaCacador(maisProximo);
+    }
+    
 }
 
 
@@ -337,11 +543,6 @@ void Varredura()
                 foco[encontrados] = matriz[alcanceX][alcanceY]; // guarda qual eh a caca
                 encontrados++;
 
-                /* desta forma eu nao sei qual eh a caca.
-                posicaoAchadoX[encontrados]= cacador.posicaoCacadorX - cacador.alcance + i;
-                posicaoAchadoY[encontrados] = cacador.posicaoCacadorY - cacador.alcance + j;
-                encontrados++;
-                */
             }
         }      
     }
@@ -351,7 +552,7 @@ void Varredura()
 
     if (encontrados == 1)
     {
-        Cacar(foco[0]);
+        Cacar(foco[0] -1);
     }
     else if (encontrados > 1)
     {
@@ -372,7 +573,7 @@ void Varredura()
             }
         }
 
-        Cacar(maisProximo);
+        Cacar(maisProximo -1);
     }
     else
     {
@@ -404,6 +605,7 @@ int main()
     for (int i = 0; i < escolha; i++)
     {
         Varredura();
+        MovimentaCaca();
     }
     cout << "digite a quantidade de turnos " << endl;
     cin >> escolha;
