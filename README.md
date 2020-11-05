@@ -1,5 +1,5 @@
-#Inteligência Artificial para Jogos:
-Trabalho Prático 1 - Máquina de Estados Finitos
+**Inteligência Artificial para Jogos:**
+**Trabalho Prático 1 - Máquina de Estados Finitos**
 
 Requisito:
 Visual Studio 2019 (Recomendável) Instalado.
