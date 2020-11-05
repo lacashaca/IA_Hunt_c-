@@ -81,13 +81,7 @@ void CriaPosicoes() // Gera numeros aleatorios e salva na struct do Caçador e da
         cacas.push_back(temp);       
         
         matriz[cacas[i].posicaoCacaX][cacas[i].posicaoCacaY] = i + 1;
-
-       
-
-
     }
-    
-    
 }
 
 
@@ -196,7 +190,6 @@ void MovimentaCaca() // É gerado um numero aleatorio que é utilizado no switch
                     matriz[cacas[i].posicaoCacaX][cacas[i].posicaoCacaY] = i + 1;                   
                     i++;
                 }
-
             default:
                 break;
             }
@@ -206,15 +199,10 @@ void MovimentaCaca() // É gerado um numero aleatorio que é utilizado no switch
              i++;
         }
     }
-
 }
-
-
-
 
 void MovimentaCacador(int choose)
 {
-
     //diagonal superior esquerda
     possibilidadeCacadorX[0] = cacador.posicaoCacadorX - 1;
     possibilidadeCacadorY[0] = cacador.posicaoCacadorY - 1;
@@ -337,7 +325,7 @@ void MovimentaCacador(int choose)
             matriz[cacador.posicaoCacadorX][cacador.posicaoCacadorY] = 7;
         }        
         break;
-
+        
     default:
         break;
     }   
@@ -349,6 +337,7 @@ void Atacar(int focoAtc) // preenche a celula que a caça foco está com zero
     matriz[cacas[focoAtc].posicaoCacaX][cacas[focoAtc].posicaoCacaY] = 0;
     cacas[focoAtc].viva = false;
 }
+
 
 void Cacar(int focoCacar)// nesta função é calculado qual possibilidade de movimentação do caçador
 {                        // deixará ele mais proximo da caça alvo.
@@ -367,9 +356,7 @@ void Cacar(int focoCacar)// nesta função é calculado qual possibilidade de movim
         {
             menorDistancia = distancia;
             maisProximo = i;
-        }
-         
-      
+        }         
     }
     if (menorDistancia == 1) // caso a caça esteja do lado do caçador, ela é atacada.
     {
@@ -378,10 +365,8 @@ void Cacar(int focoCacar)// nesta função é calculado qual possibilidade de movim
     else
     {
         MovimentaCacador(maisProximo);
-    }
-    
+    }  
 }
-
 
 
 void Varredura() // nesta função é vericado se há uma caça no perimetro do caçador
@@ -397,7 +382,6 @@ void Varredura() // nesta função é vericado se há uma caça no perimetro do caçad
         {
             int alcanceX = cacador.posicaoCacadorX - cacador.alcance + i;
             int alcanceY = cacador.posicaoCacadorY - cacador.alcance + j;
-
 
             if (matriz[alcanceX][alcanceY] == 1 || matriz[alcanceX][alcanceY] == 2                  
                 || matriz[alcanceX][alcanceY] == 3 || matriz[alcanceX][alcanceY] == 4               
@@ -432,7 +416,6 @@ void Varredura() // nesta função é vericado se há uma caça no perimetro do caçad
                 maisProximo = foco[k];
             }
         }
-
         Cacar(maisProximo -1);
     }
     else
@@ -469,8 +452,7 @@ void Simulacao(int escolha)
         }
         turnos++;
     }
-    
-    cout << "o cacador demorou " << turnos << " turnos para matar todas cacas" << endl;
+    cout << "O cacador demorou " << turnos << " turnos para matar todas as cacas." << endl;
 }
 
 int main()
@@ -479,14 +461,14 @@ int main()
     while (escolha !=0)
     {
      
-        cout << "--Bem vindo a simulacao cacador VS caca" << endl;
-        cout << "-----------------------------------" << endl;
-        cout << "--Digite 1 para Realizar a simulacao"<< endl << "com Impressao de matriz a cada turno" << endl;
-        cout << "-----------------------------------" << endl;
-        cout << "--Digite 2 para Realizar a simulacao "<< endl<< "e apenas mostrar o numero de turnos" << endl;
-        cout << "-----------------------------------" << endl;
-        cout << "--Digite 0 para Sair" << endl;
-        cout << "-----------------------------------" << endl;
+        cout << "-- Bem vindo a simulacao do Jogo: Cacador VS Caca --" << endl;
+        cout << "----------------------------------------------------" << endl;
+        cout << "-- Digite 1: Para realizar a simulacao"<< endl << "com a impressao de matriz a cada turno." << endl;
+        cout << "----------------------------------------------------" << endl;
+        cout << "-- Digite 2: Para realizar a simulacao "<< endl<< "e apenas mostrar ao final o numero de turnos." << endl;
+        cout << "----------------------------------------------------" << endl;
+        cout << "-- Digite 0: Para finalizar a simulacao." << endl;
+        cout << "----------------------------------------------------" << endl;
         cin >> escolha;
         if (escolha != 0)
             Simulacao(escolha);
