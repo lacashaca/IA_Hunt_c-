@@ -7,7 +7,7 @@ Visual Studio 2019 (Recomendável) Instalado.
 Instruções de Execução do Algoritmo:
 - No repositório IA_Hunt_c-, baixar o projeto como arquivo .zip.
 - Descompactar o arquivo .zip.
-- Navegar até o diretório do Windows on ficam os Downloads, e acessar \IA_Hunt_c--main\IA_Hunter
+- Navegar até o diretório do Windows onde ficam os Downloads, e acessar \IA_Hunt_c--main\IA_Hunter
 - Duplo clique no arquivo IA_Hunter.sln
 Então o projeto irá levar no máximo 2 minutos para carregar.
 
