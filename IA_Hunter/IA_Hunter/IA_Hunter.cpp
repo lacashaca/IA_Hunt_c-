@@ -21,11 +21,9 @@ struct s_cacador
 int const linhas = 30;
 int const colunas = 30;
 
-
 int matriz[linhas][colunas];
 
 int possibilidadeCacadorX[8], possibilidadeCacadorY[8];
-int possibilidadeCacaX[8], possibilidadeCacaY[8];
 
 vector <caca> cacas;
 s_cacador cacador;
@@ -36,28 +34,12 @@ void CriaMatriz()
     {
         for (int j = 0; j < colunas; j++)
         {        
-
-            matriz[i][j] = 0;
-
-            
+            matriz[i][j] = 0;            
         }
        
     }
 }
 
-
-
-void ImprimeMatriz() // Preenche Matriz com 0
-{
-    for (int i = 0; i < linhas; i++)
-    {
-        for (int j = 0; j < colunas; j++)
-        {
-            cout << matriz[i][j] << " ";
-        }
-        cout << endl;
-    }
-}
 
 void CriaPosicoes() // Gera numeros aleatorios e salva na struct do Caçador e das Caças
 {
@@ -65,6 +47,7 @@ void CriaPosicoes() // Gera numeros aleatorios e salva na struct do Caçador e da
     cacador.posicaoCacadorX = rand() % 29;
     cacador.posicaoCacadorY = rand() % 29;
     matriz[cacador.posicaoCacadorX][cacador.posicaoCacadorY] = 7;
+
 
     for (int i = 0; i < 5; i++)
     {
@@ -79,10 +62,11 @@ void CriaPosicoes() // Gera numeros aleatorios e salva na struct do Caçador e da
         }
 
         cacas.push_back(temp);       
-        
+        cacas[i].viva = true;
         matriz[cacas[i].posicaoCacaX][cacas[i].posicaoCacaY] = i + 1;
-    }
+    }   
 }
+
 
 
 void MovimentaCaca() // É gerado um numero aleatorio que é utilizado no switch
@@ -190,6 +174,7 @@ void MovimentaCaca() // É gerado um numero aleatorio que é utilizado no switch
                     matriz[cacas[i].posicaoCacaX][cacas[i].posicaoCacaY] = i + 1;                   
                     i++;
                 }
+
             default:
                 break;
             }
@@ -199,10 +184,15 @@ void MovimentaCaca() // É gerado um numero aleatorio que é utilizado no switch
              i++;
         }
     }
+
 }
+
+
+
 
 void MovimentaCacador(int choose)
 {
+
     //diagonal superior esquerda
     possibilidadeCacadorX[0] = cacador.posicaoCacadorX - 1;
     possibilidadeCacadorY[0] = cacador.posicaoCacadorY - 1;
@@ -325,7 +315,7 @@ void MovimentaCacador(int choose)
             matriz[cacador.posicaoCacadorX][cacador.posicaoCacadorY] = 7;
         }        
         break;
-        
+
     default:
         break;
     }   
@@ -337,7 +327,6 @@ void Atacar(int focoAtc) // preenche a celula que a caça foco está com zero
     matriz[cacas[focoAtc].posicaoCacaX][cacas[focoAtc].posicaoCacaY] = 0;
     cacas[focoAtc].viva = false;
 }
-
 
 void Cacar(int focoCacar)// nesta função é calculado qual possibilidade de movimentação do caçador
 {                        // deixará ele mais proximo da caça alvo.
@@ -356,7 +345,9 @@ void Cacar(int focoCacar)// nesta função é calculado qual possibilidade de movim
         {
             menorDistancia = distancia;
             maisProximo = i;
-        }         
+        }
+         
+      
     }
     if (menorDistancia == 1) // caso a caça esteja do lado do caçador, ela é atacada.
     {
@@ -365,8 +356,10 @@ void Cacar(int focoCacar)// nesta função é calculado qual possibilidade de movim
     else
     {
         MovimentaCacador(maisProximo);
-    }  
+    }
+    
 }
+
 
 
 void Varredura() // nesta função é vericado se há uma caça no perimetro do caçador
@@ -383,13 +376,14 @@ void Varredura() // nesta função é vericado se há uma caça no perimetro do caçad
             int alcanceX = cacador.posicaoCacadorX - cacador.alcance + i;
             int alcanceY = cacador.posicaoCacadorY - cacador.alcance + j;
 
+
             if (matriz[alcanceX][alcanceY] == 1 || matriz[alcanceX][alcanceY] == 2                  
                 || matriz[alcanceX][alcanceY] == 3 || matriz[alcanceX][alcanceY] == 4               
                    || matriz[alcanceX][alcanceY] == 5 && matriz[alcanceX][alcanceY] != 7)           
             {                
                 posicaoAchadoX[encontrados] = alcanceX;
                 posicaoAchadoY[encontrados] = alcanceY;
-                foco[encontrados] = matriz[alcanceX][alcanceY]; // guarda qual é a caça (1,2,3,,4,5)
+                foco[encontrados] = matriz[alcanceX][alcanceY]; // guarda qual é a caça (1,2,3,4,5)
                 encontrados++;
             }
         }      
@@ -416,6 +410,7 @@ void Varredura() // nesta função é vericado se há uma caça no perimetro do caçad
                 maisProximo = foco[k];
             }
         }
+
         Cacar(maisProximo -1);
     }
     else
@@ -423,16 +418,23 @@ void Varredura() // nesta função é vericado se há uma caça no perimetro do caçad
         MovimentaCacador(9);
     }  
 }
+void ImprimeMatriz() // Preenche Matriz com 0
+{
+    for (int i = 0; i < linhas; i++)
+    {
+        for (int j = 0; j < colunas; j++)
+        {
+            cout << matriz[i][j] << " ";
+        }
+        cout << endl;
+    }
+}
 
 void Simulacao(int escolha)
 {
     CriaMatriz();
     CriaPosicoes();   
     int vivos = 1;
-    for (int i = 0; i < 5; i++)
-    {
-        cacas[i].viva = true;
-    }
     int turnos = 0;
     while (vivos != 0)
     {
@@ -452,7 +454,8 @@ void Simulacao(int escolha)
         }
         turnos++;
     }
-    cout << "O cacador demorou " << turnos << " turnos para matar todas as cacas." << endl;
+    
+    cout << "o cacador demorou " << turnos << " turnos para matar todas cacas" << endl;
 }
 
 int main()
@@ -461,7 +464,7 @@ int main()
     while (escolha !=0)
     {
      
-        cout << "-- Bem vindo a simulacao do Jogo: Cacador VS Caca --" << endl;
+ cout << "-- Bem vindo a simulacao do Jogo: Cacador VS Caca --" << endl;
         cout << "----------------------------------------------------" << endl;
         cout << "-- Digite 1: Para realizar a simulacao"<< endl << "com a impressao de matriz a cada turno." << endl;
         cout << "----------------------------------------------------" << endl;
