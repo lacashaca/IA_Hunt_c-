@@ -5,7 +5,6 @@ Requisito:
 Visual Studio 2019 (Recomendável) Instalado.
 
 Instruções de Execução do Algoritmo:
-
 - No repositório IA_Hunt_c-, baixar o projeto como arquivo .zip.
 - Descompactar o arquivo .zip.
 - Navegar até o diretório do Windows on ficam os Downloads, e acessar \IA_Hunt_c--main\IA_Hunter
@@ -13,11 +12,11 @@ Instruções de Execução do Algoritmo:
 Então o projeto irá levar no máximo 2 minutos para carregar.
 
 Dentro do Visual Studio 2019:
-- Navegar na guia Gerenciador de Soluções, expandir a opção **IA_Hunter**, depois **Arquivos de Origem** e posteriormente dar duplo clique encima de **IA_Hunter.cpp**
+- Navegar na guia Gerenciador de Soluções, expandir a opção **IA_Hunter**, depois **Arquivos de Origem** e posteriormente dar duplo clique em cima de **IA_Hunter.cpp**
 - Enfim, para executar, clicar em "Depurador Local do Windows" e uma janela de script irá carregar.
 
 Dentro da Simulação:
 - Será exibido um menu com três opções:
-  Opção 1 para executar simulação imprimindo a matriz a cada turno.
-  Opção 2 para executar simulação apenas mostrando a quantidade de turnos.
-  Opção 0 para sair da simulação.
+  Opção 1: Para executar a simulação e fazer a impressão da matriz a cada turno.
+  Opção 2: Para executar a simulação e apenas indicar a quantidade de turnos até todas as caças serem eliminadas.
+  Opção 0: Para sair da simulação do jogo.
